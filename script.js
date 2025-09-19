@@ -703,28 +703,10 @@ function showStreamingOptions(movie) {
 						<p>Free streaming platform</p>
 					</div>
 				</div>
-				<div class="streaming-option" data-url="https://www.imdb.com/title/${movie.imdb_id || ''}">
-					<div class="streaming-icon imdb">
-						<i class="fab fa-imdb"></i>
-					</div>
-					<div class="streaming-info">
-						<h3>IMDb</h3>
-						<p>View details and streaming options</p>
-					</div>
-				</div>
-				<div class="streaming-option" data-url="https://www.themoviedb.org/movie/${movie.id}">
-					<div class="streaming-icon tmdb">
-						<i class="fas fa-database"></i>
-					</div>
-					<div class="streaming-info">
-						<h3>TMDb</h3>
-						<p>Movie database and info</p>
-					</div>
-				</div>
+				
+				
 			</div>
-			<div class="streaming-footer">
-				<p><i class="fas fa-info-circle"></i> Note: Some platforms may require subscription or may not have the movie available.</p>
-			</div>
+		
 		</div>
 	`;
 	
