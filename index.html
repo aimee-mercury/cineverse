@@ -59,7 +59,7 @@
             <div class="hero-content">
                 <h1>Discover The Best Movies </h1>
                 <p>Explore the latest blockbusters, critically acclaimed films, and hidden gems from around the world.</p>
-                <a href="#now" class="btn">Explore Now</a>
+                <a href="#new" class="btn">Explore Now</a>
             </div>
         </div>
     </section>
@@ -68,10 +68,12 @@
     <a id="new"></a>
     <section class="container">
         <h2 class="section-title">New & Trending</h2>
-        <div class="carousel" id="new-movies-carousel">
-            <div class="carousel-track" id="new-movies-track"></div>
-            <button class="carousel-btn prev" id="new-prev"><i class="fas fa-chevron-left"></i></button>
-            <button class="carousel-btn next" id="new-next"><i class="fas fa-chevron-right"></i></button>
+        <div class="carousel-container">
+            <div class="carousel" id="new-movies-carousel">
+                <div class="carousel-track" id="new-movies-track"></div>
+                <button class="carousel-btn prev" id="new-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-btn next" id="new-next"><i class="fas fa-chevron-right"></i></button>
+            </div>
         </div>
     </section>
 
@@ -90,9 +92,11 @@
     <a id="series"></a>
     <section class="container">
         <h2 class="section-title">Series</h2>
-        <div class="movies-grid" id="series-list">
-            <div class="loader">
-                <div class="loader-circle"></div>
+        <div class="carousel-container">
+            <div class="carousel" id="series-carousel">
+                <div class="carousel-track" id="series-track"></div>
+                <button class="carousel-btn prev" id="series-prev"><i class="fas fa-chevron-left"></i></button>
+                <button class="carousel-btn next" id="series-next"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
@@ -150,7 +154,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Notification -->
     <div class="notification" id="notification"></div>

@@ -204,7 +204,133 @@ document.addEventListener('DOMContentLoaded', () => {
 	loadNewMoviesCarousel();
 	loadPopular();
 });
+// Add to your existing script.js
 
+// DOM Elements for series
+const seriesTrack = document.getElementById('series-track');
+const seriesPrevBtn = document.getElementById('series-prev');
+const seriesNextBtn = document.getElementById('series-next');
+
+// Load series carousel
+async function loadSeriesCarousel() {
+    try {
+        const url = `${API_URL}/tv/popular?language=en-US&page=1`;
+        const res = await fetch(url, FETCH_OPTIONS);
+        const data = await res.json();
+        if (Array.isArray(data.results)) {
+            renderSeriesCarousel(data.results.slice(0, 12), seriesTrack);
+            setupCarouselControls('series-carousel', 'series-track', 'series-prev', 'series-next');
+        }
+    } catch (e) { 
+        console.error('Error loading series:', e);
+        seriesTrack.innerHTML = '<p class="no-results">Failed to load series.</p>';
+    }
+}
+
+// Render series carousel
+function renderSeriesCarousel(series, trackEl) {
+    trackEl.innerHTML = series.map(s => `
+        <div class="carousel-card" data-id="${s.id}" data-type="tv">
+            <img loading="lazy" src="${s.backdrop_path ? IMG_PATH + 'w780' + s.backdrop_path : PLACEHOLDER_IMG}" alt="${s.name || ''}">
+            <div class="carousel-info">
+                <h4>${s.name || ''}</h4>
+                <div class="carousel-meta">
+                    <span>${s.first_air_date ? s.first_air_date.split('-')[0] : 'N/A'}</span>
+                    <span class="rating"><i class="fas fa-star"></i> ${s.vote_average ? s.vote_average.toFixed(1) : 'N/A'}</span>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    // Click to open details
+    trackEl.querySelectorAll('.carousel-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const type = card.getAttribute('data-type');
+            showMovieDetails(card.getAttribute('data-id'), type);
+        });
+    });
+}
+
+// Update setupCarouselControls function
+function setupCarouselControls(wrapperId, trackId, prevId, nextId) {
+    const wrapper = document.getElementById(wrapperId);
+    const track = document.getElementById(trackId);
+    const prev = document.getElementById(prevId);
+    const next = document.getElementById(nextId);
+    
+    if (!wrapper || !track || !prev || !next) return;
+    
+    const cardWidth = 280; // approximate width + gap
+    const scrollAmount = cardWidth * 2; // Scroll 2 cards at a time
+    
+    prev.addEventListener('click', () => {
+        wrapper.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    });
+    
+    next.addEventListener('click', () => {
+        wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    });
+    
+    // Hide buttons when at the edges
+    const checkScrollPosition = () => {
+        const { scrollLeft, scrollWidth, clientWidth } = wrapper;
+        prev.style.display = scrollLeft <= 10 ? 'none' : 'flex';
+        next.style.display = scrollLeft >= scrollWidth - clientWidth - 10 ? 'none' : 'flex';
+    };
+    
+    wrapper.addEventListener('scroll', checkScrollPosition);
+    checkScrollPosition(); // Initial check
+    
+    // Auto-scroll (optional)
+    let autoScrollInterval = setInterval(() => {
+        if (wrapper.scrollLeft >= wrapper.scrollWidth - wrapper.clientWidth) {
+            wrapper.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+    }, 5000);
+    
+    // Pause auto-scroll on hover
+    wrapper.addEventListener('mouseenter', () => clearInterval(autoScrollInterval));
+    wrapper.addEventListener('mouseleave', () => {
+        autoScrollInterval = setInterval(() => {
+            if (wrapper.scrollLeft >= wrapper.scrollWidth - wrapper.clientWidth) {
+                wrapper.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                wrapper.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        }, 5000);
+    });
+}
+
+// Update initialization
+document.addEventListener('DOMContentLoaded', () => {
+    loadNewMoviesCarousel();
+    loadPopular();
+    loadSeriesCarousel(); // Add this line
+});
+
+// Update showMovieDetails to handle TV shows
+async function showMovieDetails(itemId, type = 'movie') {
+    try {
+        const response = await fetch(`${API_URL}/${type}/${itemId}?language=en-US`, FETCH_OPTIONS);
+        if (!response.ok) throw new Error('Details failed');
+        const item = await response.json();
+
+        const videosRes = await fetch(`${API_URL}/${type}/${itemId}/videos?language=en-US`, FETCH_OPTIONS);
+        const videosData = await videosRes.json();
+        const trailer = (videosData.results || []).find(v => v.site === 'YouTube' && v.type === 'Trailer');
+
+        // Update the rest of your function to handle both movies and TV shows
+        // You'll need to adjust the display based on the type parameter
+        
+        // ... rest of your existing function code
+        
+    } catch (error) {
+        console.error('Error fetching details:', error);
+        showNotification('Failed to load details. Please try again later.');
+    }
+}
 // Render movie cards with optimized image loading
 function displayMovies(movies, element) {
 	const size = 'w500';

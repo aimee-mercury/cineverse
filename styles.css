@@ -176,32 +176,47 @@ nav ul li a:hover {
     border-radius: 2px;
 }
 
-/* New Movies Carousel */
-.carousel {
-    position: relative;
+/* Add to your existing styles.css */
+.carousel-container {
+    width: 100%;
     overflow: hidden;
-    border-radius: 12px;
-    background: #101020;
+    position: relative;
+}
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    padding: 20px 0;
+    gap: 20px;
+}
+
+.carousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
 }
 
 .carousel-track {
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(260px, 1fr);
-    gap: 16px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    padding: 10px;
+    display: flex;
+    gap: 20px;
+    transition: transform 0.3s ease;
 }
 
 .carousel-card {
-    position: relative;
-    min-width: 280px;
+    flex: 0 0 auto;
+    width: 280px;
+    background: #1a1a2e;
     border-radius: 12px;
     overflow: hidden;
-    background: #1a1a2e;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
-    transition: transform .3s ease, box-shadow .3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.carousel-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 20px rgba(0,0,0,.4);
 }
 
 .carousel-card img {
@@ -218,6 +233,9 @@ nav ul li a:hover {
 .carousel-info h4 {
     font-size: 1.05rem;
     margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .carousel-meta {
@@ -227,28 +245,57 @@ nav ul li a:hover {
     font-size: .9rem;
 }
 
-.carousel-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(0,0,0,.4);
-}
-
 .carousel-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0,0,0,.5);
+    background: rgba(0,0,0,.7);
     border: 0;
     color: #fff;
     width: 38px;
     height: 38px;
     border-radius: 50%;
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
+    z-index: 10;
+    transition: background 0.3s ease;
 }
 
-.carousel-btn.prev { left: 8px; }
-.carousel-btn.next { right: 8px; }
+.carousel-btn:hover {
+    background: rgba(229, 9, 20, 0.8);
+}
+
+.carousel-btn.prev { 
+    left: 10px; 
+}
+
+.carousel-btn.next { 
+    right: 10px; 
+}
+
+/* Responsive adjustments for carousel */
+@media (max-width: 768px) {
+    .carousel-card {
+        width: 220px;
+    }
+    
+    .carousel-btn {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+@media (max-width: 576px) {
+    .carousel-card {
+        width: 180px;
+    }
+    
+    .carousel-info h4 {
+        font-size: 0.95rem;
+    }
+}
 
 .movies-grid {
     display: grid;
