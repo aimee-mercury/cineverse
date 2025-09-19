@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover the latest movies, watch trailers, and stream your favorite films online with CineVerse.">
+    <meta name="keywords" content="movies, streaming, online movies, trailers, film reviews">
+    <meta name="theme-color" content="#e50914">
+    <title>CineVerse </title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="./styles.css" as="style">
+    <link rel="preload" href="./script.js" as="script">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" as="style">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" href="./styles.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎬</text></svg>">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <i class="fas fa-play-circle"></i>
+                    CineVerse
+                </a>
+                
+                <nav>
+                    <ul>
+                        <li><a href="#top">Home</a></li>
+                        <li><a href="#new">New</a></li>
+                        <li><a href="#series">Series</a></li>
+                        <li><a href="#popular">Popular</a></li>
+                    </ul>
+                </nav>
+                
+                <div class="search-box">
+                    <input type="text" placeholder="Search for movies..." id="search-input">
+                    <button id="search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <a id="top"></a>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Discover The Best Movies </h1>
+                <p>Explore the latest blockbusters, critically acclaimed films, and hidden gems from around the world.</p>
+                <a href="#now" class="btn">Explore Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Movies Carousel -->
+    <a id="new"></a>
+    <section class="container">
+        <h2 class="section-title">New & Trending</h2>
+        <div class="carousel" id="new-movies-carousel">
+            <div class="carousel-track" id="new-movies-track"></div>
+            <button class="carousel-btn prev" id="new-prev"><i class="fas fa-chevron-left"></i></button>
+            <button class="carousel-btn next" id="new-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Popular Movies -->
+    <a id="popular"></a>
+    <section class="container">
+        <h2 class="section-title">Popular</h2>
+        <div class="movies-grid" id="popular-movies">
+            <div class="loader">
+                <div class="loader-circle"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Series -->
+    <a id="series"></a>
+    <section class="container">
+        <h2 class="section-title">Series</h2>
+        <div class="movies-grid" id="series-list">
+            <div class="loader">
+                <div class="loader-circle"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>About CineVerse</h3>
+                    <p>Your ultimate destination for movie reviews, news, and recommendations. Discover the best of cinema with us.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Explore</h3>
+                    <ul>
+                        <li><a href="#top">Home</a></li>
+                        <li><a href="#new">New</a></li>
+                        <li><a href="#popular">Popular</a></li>
+                        <li><a href="#series">Series</a></li>
+                    </ul>
+                </div>
+          
+                
+                <div class="footer-column">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe to our newsletter for the latest movie updates and reviews.</p>
+                    <form>
+                        <input type="email" placeholder="Your Email" style="width:100%; padding:10px; margin:10px 0; border-radius:5px; border:none;">
+                        <button type="submit" class="btn" style="width:100%;">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>Aimeecode studio &copy; 2024 CineVerse. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Movie Detail Modal -->
+    <div class="modal" id="movie-modal">
+        <div class="modal-content">
+            <div class="close-modal" id="close-modal">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="movie-detail" id="movie-detail">
+                
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Notification -->
+    <div class="notification" id="notification"></div>
+
+    <!-- Loading Progress Bar -->
+    <div id="loading-progress" class="loading-progress">
+        <div class="progress-bar"></div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
